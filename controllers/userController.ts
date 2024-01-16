@@ -8,6 +8,7 @@ import Token from '../models/Token';
 
 interface RegisterRequestBody {
     password: string;
+    username?: string;
     email: string;
 }
 
@@ -21,7 +22,7 @@ const userController = {
     register: async (req: RegisterRequest, res: Response) => {
         try {
 
-            const { password, email } = req.body;
+            const { password, email, username } = req.body;
 
             const maxEmailLength = 255;
             const minPasswordLength = 8;
@@ -52,7 +53,13 @@ const userController = {
 
             // Хеширование пароля и создание нового пользователя
             const hashedPassword = await bcrypt.hash(password, saltRounds);
-            const newUser = new User({ password: hashedPassword, email });
+
+            let userData = { password: hashedPassword, email, username }
+            if (username == null || username.length == 0 || username === undefined) {
+                userData.username = email
+            }
+
+            const newUser = new User(userData);
             await newUser.save();
 
             res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
@@ -68,7 +75,7 @@ const userController = {
     login: async (req: Request, res: Response) => {
         try {
             const { email, username, password } = req.body;
-
+            console.log({ email, username, password })
             if ((username && email) || (!username && !email)) {
                 return res.status(400).json({ message: 'Укажите username или email' });
             }
@@ -77,7 +84,7 @@ const userController = {
             const query = username ? { $or: [{ email }, { username }] } : { email };
 
             const user = await User.findOne(query);
-
+            console.log(user)
             // Проверка наличия пользователя и сравнение пароля
             if (user && (await bcrypt.compare(password, user.password))) {
                 // Создание JWT токена

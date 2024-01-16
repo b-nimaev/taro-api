@@ -1,6 +1,6 @@
 import { Document, Schema, Types, model } from 'mongoose';
 
-interface IUser extends Document {
+interface Recipient extends Document {
   username?: string;
   password: string;
   firstName?: string;
@@ -26,6 +26,9 @@ interface IUser extends Document {
     // и так далее...
   };
   
+  telegramUsername?: string;
+  telegramChatId?: number;
+
   reports?: Types.ObjectId[];
   referrals?: Types.ObjectId[];
 
@@ -38,9 +41,9 @@ interface IUser extends Document {
   updatedAt: Date;
 }
 
-const UserSchema = new Schema({
+const RecipientSchema = new Schema({
   username: { type: String, unique: true },
-  password: { type: String, required: true },
+  password: { type: String },
   firstName: { type: String },
   lastName: { type: String },
   email: { type: String, unique: true },
@@ -55,7 +58,7 @@ const UserSchema = new Schema({
     zipCode: { type: String },
     country: { type: String },
   },
-  role: { type: String, default: 'user' },
+  role: { type: String, default: 'recipient' },
 
   isActive: { type: Boolean, default: false },
   lastActivity: { type: Date },
@@ -68,13 +71,14 @@ const UserSchema = new Schema({
     instagram: { type: String },
     // и так далее...
   },
-
+  telegramUsername: { type: String },
+  telegramChatId: { type: Number, required: true },
   reports: [{ type: Schema.Types.ObjectId, ref: 'Report' }],
   referrals: [{ type: Schema.Types.ObjectId, ref: 'Referral' }],
 }, {
     timestamps: true
 });
 
-const User = model<IUser>('User', UserSchema);
+const Recipient = model<Recipient>('Recipient', RecipientSchema);
 
-export default User;
+export default Recipient;

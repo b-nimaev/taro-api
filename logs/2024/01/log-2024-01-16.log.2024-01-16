@@ -1,0 +1,26 @@
+{"level":"error","message":"Ошибка при входе пользователя: Operation `users.findOne()` buffering timed out after 10000ms","timestamp":"2024-01-16T08:02:41.397Z"}
+{"level":"error","message":"Ошибка при входе пользователя: Operation `users.findOne()` buffering timed out after 10000ms","timestamp":"2024-01-16T08:02:47.871Z"}
+{"level":"error","message":"Ошибка при регистрации пользователя: E11000 duplicate key error collection: api_prod.users index: username_1 dup key: { username: null }","timestamp":"2024-01-16T08:05:55.101Z"}
+{"level":"error","message":"Ошибка при регистрации пользователя: E11000 duplicate key error collection: api_prod.users index: username_1 dup key: { username: null }","timestamp":"2024-01-16T08:12:11.566Z"}
+{"level":"info","message":"Успешная регистрация пользователя: 65a63a88722e13860c6399c6","timestamp":"2024-01-16T08:12:56.183Z"}
+{"level":"info","message":"Токен создан для пользователя: 65a63a88722e13860c6399c6","timestamp":"2024-01-16T08:19:17.366Z"}
+{"level":"info","message":"Токен создан для пользователя: 65a63a88722e13860c6399c6","timestamp":"2024-01-16T09:53:24.558Z"}
+{"level":"info","message":"Токен создан для пользователя: 65a63a88722e13860c6399c6","timestamp":"2024-01-16T09:53:45.851Z"}
+{"level":"info","message":"Токен создан для пользователя: 65a63a88722e13860c6399c6","timestamp":"2024-01-16T09:56:34.318Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:25:45.010Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:28:39.364Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:32:11.876Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:32:33.861Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:32:36.687Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:32:49.168Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:51:21.468Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:51:57.516Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:52:43.770Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:52:52.126Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:53:29.870Z"}
+{"level":"info","message":"Токен создан для пользователя: 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:58:35.695Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:58:39.553Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:59:17.766Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:59:41.615Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T10:59:54.839Z"}
+{"level":"info","message":"Токен верифицирован для 65a63a88722e13860c6399c6","timestamp":"2024-01-16T11:00:20.110Z"}
