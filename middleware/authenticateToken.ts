@@ -16,6 +16,7 @@ export interface AuthRequest extends Request {
 }
 
 const authenticateToken = async (req: AuthRequest, res: Response, next: NextFunction) => {
+    console.log(123)
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {
