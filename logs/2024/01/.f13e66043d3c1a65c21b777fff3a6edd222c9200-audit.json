@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\workspace\\taro-api\\logs\\2024\\01\\.f13e66043d3c1a65c21b777fff3a6edd222c9200-audit.json",
+    "files": [
+        {
+            "date": 1705422506973,
+            "name": "C:\\workspace\\taro-api\\logs\\2024\\01\\log-2024-01-17.log.2024-01-17",
+            "hash": "9f7a2e76e90843a85ad4ad61838d47eab4d9946e28369fd0ed8a7d565b8b56ec"
+        }
+    ],
+    "hashType": "sha256"
+}
