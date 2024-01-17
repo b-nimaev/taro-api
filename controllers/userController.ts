@@ -75,7 +75,6 @@ const userController = {
     login: async (req: Request, res: Response) => {
         try {
             const { email, username, password } = req.body;
-            console.log({ email, username, password })
             if ((username && email) || (!username && !email)) {
                 return res.status(400).json({ message: 'Укажите username или email' });
             }
