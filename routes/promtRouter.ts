@@ -9,5 +9,7 @@ promtRouter.use(authenticateToken)
 
 promtRouter.post('/create', promtController.create);
 promtRouter.get('/', promtController.getAll);
+promtRouter.put('/edit', promtController.edit);
+promtRouter.delete('/delete', promtController.delete);
 
 export default promtRouter;

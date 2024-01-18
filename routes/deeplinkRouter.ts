@@ -1,4 +1,5 @@
 // deeplinkRouter.ts
+// deeplinkRouter.ts
 import express from 'express';
 import deeplinkController from '../controllers/deeplinkController';
 import authenticateToken from '../middleware/authenticateToken';
@@ -9,6 +10,7 @@ deeplinkRouter.use(authenticateToken)
 
 // Регистрация новой ссылки
 deeplinkRouter.post('/create', deeplinkController.create);
+deeplinkRouter.delete('/:id', deeplinkController.deleteLink);
 deeplinkRouter.get('/', deeplinkController.getAllDeeplinks);
 
 export default deeplinkRouter;

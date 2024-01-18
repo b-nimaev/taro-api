@@ -2,8 +2,11 @@ import { Request, Response } from 'express';
 import BinModel, { IBin } from '../models/Bin';
 import logger from '../utils/logger';
 import Promt from '../models/Promt';
+import { ObjectId } from 'mongodb';
 interface PromtRequestBody {
     text: string;
+    id: string;
+    value: string
 }
 
 interface PromtRequest extends Request {
@@ -47,6 +50,42 @@ const promtController = {
             logger.error('Ошибка при получении промтов!')
             console.error(error);
             res.status(500).json({ message: 'Ошибка при получении промтов!' });
+        }
+    },
+
+    edit: async (req: PromtRequest, res: Response) => {
+
+        try {
+
+            const { id, value} = req.body;
+            const promts = await Promt.findByIdAndUpdate(new ObjectId(id), {
+                $set: {
+                    text: value
+                }
+            });
+
+            res.status(200).json({ promts });
+            logger.info("промт обновлен! " + promts)
+        } catch (error) {
+            logger.error('Ошибка при обновлении промта!')
+            console.error(error);
+            res.status(500).json({ message: 'Ошибка при обновлении промта!' });
+        }
+    },
+
+    delete: async (req: PromtRequest, res: Response) => {
+
+        try {
+
+            const { id } = req.body;
+            const promts = await Promt.findByIdAndDelete(new ObjectId(id));
+
+            res.status(200).json({ promts });
+            logger.info("промт удален! " + promts)
+        } catch (error) {
+            logger.error('Ошибка при удалении промта!')
+            console.error(error);
+            res.status(500).json({ message: 'Ошибка при удалении промта!' });
         }
     },
 };

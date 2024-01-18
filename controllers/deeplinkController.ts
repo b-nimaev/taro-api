@@ -11,6 +11,7 @@ import { ObjectId } from 'mongodb';
 interface DeeplinkRequestBody {
     name: string;
     deeplink: string;
+    id: string
 }
 
 interface DeeplinkRequest extends Request {
@@ -51,6 +52,24 @@ const deeplinkController = {
             console.error(error)
             logger.error(`Ошибка при получении реферальных ссылок, ${error}`)
             res.status(500).json({ message: `Ошибка при получении реферальных ссылок` })
+        }
+    },
+
+    deleteLink: async (req: DeeplinkRequest, res: Response) => {
+        try {
+
+            const { id } = req.body;
+            const deleting = await Referral.findByIdAndDelete(new ObjectId(id));
+
+            await res.status(200).json({ message: 'Ссылка удалена успешно', deleting })
+            logger.info('Ссылка удалена успешно')
+            
+            return true
+
+        } catch (error) {
+            logger.error('Ошибка при удалении ссылки')
+            console.log(error)
+            res.status(500).json({ message: 'Ошибка при удалении ссылки' })
         }
     }
 };

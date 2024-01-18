@@ -5,8 +5,12 @@ import Recipient from '../models/telegram/Recipient';
 import OpenAI from 'openai';
 import Promt from '../models/Promt';
 import Chat, { IMessage } from '../models/Chat';
+import Referral from '../models/Referral';
+import Payment from '../models/payment';
 interface TelegramRequestBody {
     telegramChatId: number;
+    payload: string;
+    firstName: string
 }
 
 interface TelegramRequest extends Request {
@@ -21,21 +25,53 @@ const telegramController = {
 
         try {
             // Предполагается, что данные передаются в теле запроса
-            const { telegramChatId } = req.body;
+            const { telegramChatId, payload, firstName } = req.body;
 
             const newUser = {
                 telegramChatId
             };
-            console.log(telegramChatId)
+
             const createdUser = await Recipient.create({
-                telegramChatId: telegramChatId
+                telegramChatId: telegramChatId,
+                firstName: firstName
             });
+
             await Chat.create({
                 telegramChatId: createdUser._id
             });
+
+            console.log(payload)
+
+            await Referral.findOneAndUpdate({
+                value: payload
+            }, {
+                $addToSet: {
+                    referredUserId: createdUser._id
+                }
+            })
+
             logger.info('Новый пользователь телеграмм сохранен!')
 
             res.status(201).json(createdUser);
+        } catch (error) {
+            logger.error('Ошибка при сохранении пользователя телеграмм!')
+            console.error(error);
+            res.status(500).json({ message: 'Ошибка при сохранении пользователя телеграмм!' });
+        }
+    },
+    getRecipients: async (req: TelegramRequest, res: Response) => {
+
+        try {
+            
+            const recipients = await Recipient.find()
+
+            if (!recipients) {
+                return res.status(200).json({ recipients: [] })
+            }
+            // logger.info('Новый пользователь телеграмм сохранен!')
+
+            res.status(200).json({ recipients: recipients });
+
         } catch (error) {
             logger.error('Ошибка при сохранении пользователя телеграмм!')
             console.error(error);
@@ -124,12 +160,18 @@ const telegramController = {
             // Проходим по всем промптам
             for (let i = 0; i < prompts.length; i++) {
                 // Проверяем, есть ли в тексте промпта переменные {cart1}, {cart2}, {cart3}
+                // Проверяем, есть ли в тексте промпта переменные {cart1}, {cart2}, {cart3}
                 if (prompts[i].text.includes("{cart1}") || prompts[i].text.includes("{cart2}") || prompts[i].text.includes("{cart3}")) {
                     // Заменяем переменные на значения трех случайных карт
                     let replacedText = prompts[i].text
                         .replace(/\{cart1\}/, randomSelectedCards[0])
                         .replace(/\{cart2\}/, randomSelectedCards[1])
                         .replace(/\{cart3\}/, randomSelectedCards[2]);
+
+                    // Если есть переменная {question}, добавляем ее вместе с картами
+                    if (prompts[i].text.includes("{question}")) {
+                        replacedText = replacedText.replace(/\{question\}/, question);
+                    }
 
                     // Добавляем замененный текст к строке promts
                     promts += replacedText;
@@ -194,7 +236,80 @@ const telegramController = {
             console.error(error)
             return res.status(500).json({ error: 'Internal server error' });
         }
-    }
+    },
+
+    createPaymentOrder: async (req: Request, res: Response) => {
+
+        try {
+            const { id, url, telegramChatId } = req.body
+            console.log({ id, url, telegramChatId })
+
+            const user = await Recipient.findOne({
+                telegramChatId: parseFloat(telegramChatId)
+            })
+
+            const payment = await new Payment({
+                id,
+                url,
+                telegramChatId: user._id
+            }).save()
+            logger.info("Платжка создана")
+            return res.status(200).send(payment)
+        } catch (error){
+            console.log(error)
+            logger.error('Ошибка при сохранении платежа')
+            return res.status(500).json({ message: 'Ошибка при сохранении платежа' })
+        }
+
+    },
+
+    updateSubscribe: async (req: Request, res: Response) => {
+        try {
+
+            const { telegramChatId } = req.body
+            console.log(telegramChatId)
+            await Recipient.findOneAndUpdate({
+                telegramChatId: parseFloat(telegramChatId)
+            }, {
+                subscribe: true
+            })
+
+            res.status(200).json({ message: 'Подписка оформлена!' })
+            logger.info('подиска оформлена')
+        } catch (error) {
+            logger.error('Ошибка при обновлении подписки')
+            console.log(error)
+            return res.status(500).json({ message: 'Ошибка при обновлении подписки' })
+        }
+    },
+
+    getDialog: async (req: TelegramRequest, res: Response) => {
+
+        try {
+
+            const { telegramChatId } = req.params
+
+            const recipient = await Recipient.findOne({
+                telegramChatId: telegramChatId
+            }) 
+
+            const chat = await Chat.findOne({
+                telegramChatId: recipient._id
+            })
+
+            if (!chat) {
+                return res.status(200).json({ chat: null })
+            }
+            // logger.info('Новый пользователь телеграмм сохранен!')
+
+            res.status(200).json({ chat: chat });
+
+        } catch (error) {
+            logger.error('Ошибка при сохранении пользователя телеграмм!')
+            console.error(error);
+            res.status(500).json({ message: 'Ошибка при сохранении пользователя телеграмм!' });
+        }
+    },
 };
 
 export default telegramController;

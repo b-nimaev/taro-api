@@ -15,7 +15,7 @@ describe('Bin Tests', () => {
     // Перед каждым тестом, давайте очищать данные в базе данных
     beforeAll(async () => {
 
-        await mongoose.connect(process.env.DB_CONNECTION_STRING)
+        await mongoose.connect(process.env.db)
             .then(() => {
                 console.log('Подключено к базе данных');
             })

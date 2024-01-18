@@ -11,7 +11,7 @@ const ReferralSchema = new Schema({
   referringUserId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   referredUserId: { type: [ Schema.Types.ObjectId ], default: [] },
   name: { type: String, required: true },
-  value: { type: String, required: true },
+  value: { type: String, required: true, unique: true },
 }, {
   timestamps: true
 });

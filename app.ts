@@ -32,7 +32,7 @@ server = app.listen(port, () => {
 
 if (typeof (process.env.test) === 'string' && process.env.test !== 'true') {
   // Подключение к базе данных
-  mongoose.connect(process.env.DB_CONNECTION_STRING)
+  mongoose.connect(process.env.db)
     .then(() => {
       console.log('Подключено к базе данных');
     })
