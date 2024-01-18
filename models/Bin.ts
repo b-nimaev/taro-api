@@ -7,6 +7,8 @@ export interface IBin extends Document {
     telegramToken: string;
     telegramBotLink: string;
     telegramChannelLink: string;
+    greeting: string;
+    action: string;
 }
 
 const BinSchema = new Schema({
@@ -16,6 +18,9 @@ const BinSchema = new Schema({
     telegramToken: { type: String, default: '' },
     telegramBotLink: { type: String, default: '' },
     telegramChannelLink: { type: String, default: '' },
+    
+    greeting: { type: String, default: '' },
+    action: { type: String, default: '' }
 });
 
 const BinModel = model<IBin>('settings', BinSchema);
