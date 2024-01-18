@@ -7,6 +7,8 @@ import cors from 'cors';
 import authenticateToken from './middleware/authenticateToken';
 import deeplinkRouter from './routes/deeplinkRouter';
 import binRouter from './routes/binRouter';
+import promtRouter from './routes/promtRouter';
+import telegramRouter from './routes/telegramRouter';
 
 dotenv.config(); // Загружаем переменные окружения из файла .env
 
@@ -16,6 +18,8 @@ app.use(cors());
 app.use('/auth', userRouter);
 app.use('/deeplink', deeplinkRouter);
 app.use('/bin', binRouter);
+app.use('/promt', promtRouter);
+app.use('/telegram', telegramRouter);
 
 const port = process.env.PORT || 3000;
 

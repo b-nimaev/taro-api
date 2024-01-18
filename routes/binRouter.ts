@@ -9,5 +9,10 @@ binRouter.use(authenticateToken)
 
 binRouter.post('/', binController.init);
 binRouter.get('/', binController.getData);
+binRouter.put('/updateOpenaiToken', binController.updateOpenaiToken);
+binRouter.put('/updateTelegramData', binController.updateTelegramData);
+binRouter.put('/updatePriceData', binController.updatePriceData);
+binRouter.put('/updateGreetingMessage', binController.updateGreetingMessage);
+binRouter.put('/updateActionMessage', binController.updateActionMessage);
 
 export default binRouter;

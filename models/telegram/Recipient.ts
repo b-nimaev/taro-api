@@ -26,6 +26,8 @@ interface Recipient extends Document {
     // и так далее...
   };
   
+  freeSpin?: number;
+
   telegramUsername?: string;
   telegramChatId?: number;
 
@@ -51,6 +53,7 @@ const RecipientSchema = new Schema({
   avatar: { type: String },
   phoneNumber: { type: String },
   rating: { type: Number, default: 100 },
+  freeSpin: { type: Number, default: 3 },
   address: {
     street: { type: String },
     city: { type: String },
@@ -72,7 +75,7 @@ const RecipientSchema = new Schema({
     // и так далее...
   },
   telegramUsername: { type: String },
-  telegramChatId: { type: Number, required: true },
+  telegramChatId: { type: Number, required: true, unique: true },
   reports: [{ type: Schema.Types.ObjectId, ref: 'Report' }],
   referrals: [{ type: Schema.Types.ObjectId, ref: 'Referral' }],
 }, {
