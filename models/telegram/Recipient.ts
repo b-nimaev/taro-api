@@ -28,8 +28,11 @@ interface Recipient extends Document {
   
   freeSpin?: number;
   
-  subscribe: false;
-
+  subscribe: boolean;
+  testSubscribe?: {
+    isActive: boolean;
+    exprireAt: Date;
+  };
   telegramUsername?: string;
   telegramChatId?: number;
 
@@ -76,6 +79,10 @@ const RecipientSchema = new Schema({
     twitter: { type: String },
     instagram: { type: String },
     // и так далее...
+  },
+  testSubscribe: {
+    isActive: { type: Boolean, default: false },
+    expireAt: { type: Date }
   },
   telegramUsername: { type: String },
   telegramChatId: { type: Number, required: true, unique: true },
