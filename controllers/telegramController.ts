@@ -33,7 +33,7 @@ const telegramController = {
 
             const createdUser = await Recipient.create({
                 telegramChatId: telegramChatId,
-                firstName: firstName
+                firstName: firstName,
             });
 
             await Chat.create({

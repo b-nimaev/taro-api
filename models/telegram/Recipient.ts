@@ -49,11 +49,11 @@ interface Recipient extends Document {
 }
 
 const RecipientSchema = new Schema({
-  username: { type: String, unique: true },
+  username: { type: String },
   password: { type: String },
   firstName: { type: String },
   lastName: { type: String },
-  email: { type: String, unique: true },
+  email: { type: String },
   birthdate: { type: Date },
   avatar: { type: String },
   phoneNumber: { type: String },

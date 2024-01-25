@@ -15,11 +15,11 @@ dotenv.config(); // Загружаем переменные окружения �
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/auth', userRouter);
-app.use('/deeplink', deeplinkRouter);
-app.use('/bin', binRouter);
-app.use('/promt', promtRouter);
-app.use('/telegram', telegramRouter);
+app.use('/backendapi/auth', userRouter);
+app.use('/backendapi/deeplink', deeplinkRouter);
+app.use('/backendapi/bin', binRouter);
+app.use('/backendapi/promt', promtRouter);
+app.use('/backendapi/telegram', telegramRouter);
 
 const port = process.env.PORT || 3000;
 
